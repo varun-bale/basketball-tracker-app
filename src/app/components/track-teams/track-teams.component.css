@@ -1,0 +1,19 @@
+
+.red{
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: red;
+  color:white;
+  margin: 5px;
+}
+.green{
+  display: inline-flex;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color:white;
+  background-color: green;
+  margin: 5px;
+}

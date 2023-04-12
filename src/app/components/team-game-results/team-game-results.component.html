@@ -1,0 +1,25 @@
+<div class="container" >
+    <div class="row">
+      <div class="col-6 mt-3 mb-3" style="background-color:#f7f7f7">
+        <h2>NBA Score Tracking App</h2>
+        <div class="card" >
+          <div class="card-header">
+            <div class="row">
+              <div class="col-12">
+                <h2>{{name}} [{{abbrevation}}]</h2>
+                <h5>{{conference}}ern conference</h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>Score of past 12Days</p>
+            <p *ngFor="let game of gameResults"><strong>{{game.home_team['abbreviation']}}</strong>  
+              {{game.home_team_score}} - <strong>{{game.visitor_team['abbreviation']}}</strong>  {{game.visitor_team_score}}</p>
+          </div>
+          <div class="card-footer">
+            <button id="backBtn" routerLink="/teamSelect" class="btn btn-success"><< Back to all team status</button>
+          </div>
+        </div> 
+      </div>
+    </div>
+</div>

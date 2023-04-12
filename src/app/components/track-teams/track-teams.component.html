@@ -1,0 +1,59 @@
+<div class="container mt-3 mb-3">
+  <h2>NBA Score Tracking App</h2>
+  <div class="row mt-2">
+    <div class="col-4">
+      <select [(ngModel)]="teamId" class="form-select" id="teamSelect">
+        <option value="">-- Select a team --</option>
+        <ng-container *ngFor="let team of all_teams">
+          <option value="{{ team.id }}">{{ team.full_name }}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div class="col-3">
+      <button id="trackBtn" (click)="trackTeam()" class="btn btn-primary">Track Team</button>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3 mb-3">
+  <div class="row">
+    <div class="col-4" *ngFor="let team of one_team_games;let i=index">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-11">
+              <h2>{{team['full_name']}} [{{team['abbreviation']}}]</h2>
+              <h5>{{team['conference']}}ern conference</h5>
+            </div>
+           <div class="col-1">
+            <button  type="button" id="remove{{team['abbreviation']}}" class="close border-0" style="background: none;" (click)="removeItem(i,team.teamId)" aria-label="Close">
+              <span style="font-size: 24px;font-weight: 500;" class="pr-2" aria-hidden="true">&times;</span>
+            </button>
+           </div>
+          </div>
+        </div>
+        <div class="card-body">
+         <div class="row">
+          <div class="col-8">
+            <h5>Result of past 12days</h5>
+            <span class="align-items-center justify-content-center" *ngFor="let item of team.winloss" [ngClass]="{'red':item=='L','green':item=='W'}">
+             {{item}}
+            </span>
+            <p>Avg points scored: {{team['avgPointsScored']}}</p>
+            <p>Avg points conceded: {{team['avgPointsConceded']}}</p>
+          </div>
+          <div class="col-4 d-flex align-items-center">
+            <img src="https://interstate21.com/nba-logos/{{team['abbreviation']}}.png" alt="logo" height="80px"
+              width="80px" />
+          </div>
+         </div>
+         <div class="row">
+          <div class="col-8">
+            <button class="btn btn-success" (click)="seeGameResults(team.teamId,team['conference'],team['full_name'],team['abbreviation'])">See game results >></button>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
