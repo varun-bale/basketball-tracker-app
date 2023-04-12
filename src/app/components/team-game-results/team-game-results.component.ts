@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import {GameResults} from 'src/app/models/models';
+import {TeamCard} from 'src/app/models/models';
 
 @Component({
   selector: 'app-team-game-results',
@@ -13,7 +13,7 @@ export class TeamGameResultsComponent implements OnInit {
   teamId:string=""
   name:string=""
   conference:string=""
-  gameResults:GameResults[]=[]
+  gameResults:TeamCard[]=[]
   abbrevation:string=""
   constructor(
     private route: ActivatedRoute,
@@ -32,11 +32,21 @@ export class TeamGameResultsComponent implements OnInit {
 
   getGameResults():void{
     this.api.getLast12Days(this.teamId).subscribe({
-      next:(res:Object)=>{
-        const cardResponse = res as {data:GameResults[]}
-        this.gameResults = cardResponse.data
+      next:(response)=>{
+        console.log(response)
+        const games: TeamCard[] = response.data.map((teamCard) => {
+          return {
+            id: teamCard.id,
+            home_team: teamCard.home_team,
+            visitor_team: teamCard.visitor_team,
+            home_team_score: teamCard.home_team_score,
+            visitor_team_score: teamCard.visitor_team_score
+          };
+        });
+        this.gameResults = games
       },
       error:(err)=>{
+        console.error('Error fetching results:', err);
       }
     })
   }

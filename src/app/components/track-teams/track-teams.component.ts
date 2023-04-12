@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import { ALLTeams ,OneGame, TeamCard} from 'src/app/models/models'
+import { ALLTeams ,OneGame} from 'src/app/models/models'
 
 
 @Component({
@@ -13,7 +13,6 @@ export class TrackTeamsComponent implements OnInit{
   teamId: string = "";
   all_teams: ALLTeams[] = [];
   one_team_games : OneGame[]=[];
-  last_12days_dates:string[]=[]
   loaded_ids:string[]=[]
   constructor(
     private api: ApiService, 
@@ -22,11 +21,11 @@ export class TrackTeamsComponent implements OnInit{
 
   ngOnInit():void {
     this.api.getTeams().subscribe({
-      next:(res: Object) => {
-        const teamResponse = res as { data: ALLTeams[] };
-        this.all_teams = teamResponse.data;
+      next: (response) => {
+        this.all_teams = response.data;
       },
-      error:(err)=>{
+      error: (error) => {
+        console.error('Error fetching results:', error);
       }
     });
     if(sessionStorage.getItem("one_team_games")){
@@ -48,7 +47,7 @@ export class TrackTeamsComponent implements OnInit{
 
   addToGamesArray():void{
     this.api.getLast12Days(this.teamId).subscribe({
-      next:(res:object)=>{
+      next:(response)=>{
         this.loaded_ids.push(this.teamId)
         sessionStorage.setItem("loaded_ids",JSON.stringify(this.loaded_ids))
         let pointsScored:number=0
@@ -59,8 +58,8 @@ export class TrackTeamsComponent implements OnInit{
         let full_name:string=""
         let conference:string=""
         let abbreviation:string=""
-        const cardResponse = res as {data:TeamCard[]}
-        cardResponse.data.forEach((team)=>{
+        const cardResponse =response.data
+        cardResponse.forEach((team)=>{
           if (team.home_team.id == parseInt(this.teamId)) {
             full_name = team.home_team['full_name']
             conference = team.home_team['conference']
@@ -89,8 +88,8 @@ export class TrackTeamsComponent implements OnInit{
           }
           
         })
-        avgPointsScored = Math.round(pointsScored / cardResponse.data.length)
-        avgPointsConceded = Math.round(pointsConceded / cardResponse.data.length)
+        avgPointsScored = Math.round(pointsScored / cardResponse.length)
+        avgPointsConceded = Math.round(pointsConceded / cardResponse.length)
         this.one_team_games.push({
           winloss:winloss,
           avgPointsConceded:avgPointsConceded,
@@ -103,6 +102,7 @@ export class TrackTeamsComponent implements OnInit{
         sessionStorage.setItem("one_team_games",JSON.stringify(this.one_team_games))
       },
       error:(err)=>{
+        console.error('Error fetching results:', err);
       }
     })
   }

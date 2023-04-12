@@ -11,6 +11,10 @@ export interface TeamCard{
   id:number,
 }
 
+export interface GamesApiResponse {
+  data: TeamCard[];
+}
+
 export interface Team{
     id: number,
     abbreviation: string,
@@ -20,6 +24,11 @@ export interface Team{
     full_name: string,
     name: string
 }
+
+export interface TeamsApiResponse {
+  data: Team[];
+}
+
 
 export interface OneGame{
   winloss:string[],
@@ -31,11 +40,3 @@ export interface OneGame{
   teamId:string
 }
 
-export interface GameResults{
-  home_team_score:number
-  home_team:Team
-  visitor_team:Team
-  abbrevation:string
-  visitor_team_score:number
-  vis_abbrevation:string
-}
