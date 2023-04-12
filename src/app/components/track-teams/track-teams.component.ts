@@ -25,7 +25,6 @@ export class TrackTeamsComponent implements OnInit{
       next:(res: Object) => {
         const teamResponse = res as { data: ALLTeams[] };
         this.all_teams = teamResponse.data;
-        console.log(this.all_teams)
       },
       error:(err)=>{
       }
