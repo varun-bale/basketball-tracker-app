@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import { ALLTeams ,OneGame} from 'src/app/models/models'
+import { OneGame,Team} from 'src/app/models/models'
 
 
 @Component({
@@ -11,7 +11,7 @@ import { ALLTeams ,OneGame} from 'src/app/models/models'
 })
 export class TrackTeamsComponent implements OnInit{
   teamId: string = "";
-  all_teams: ALLTeams[] = [];
+  all_teams: Team[] = [];
   one_team_games : OneGame[]=[];
   loaded_ids:string[]=[]
   constructor(

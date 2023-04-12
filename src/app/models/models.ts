@@ -1,7 +1,3 @@
-export interface ALLTeams {
-  id: number;
-  full_name: string;
-}
 
 export interface TeamCard{
   home_team:Team,
