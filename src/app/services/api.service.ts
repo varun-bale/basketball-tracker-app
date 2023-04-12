@@ -22,7 +22,7 @@ export class ApiService {
 
   getLast12Dates():string[]{
       const dates = [];
-      for (let i = 0; i < 12; i++) {
+      for (let i = 1; i <= 12; i++) {
         const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
         const dateString = date.toISOString().slice(0, 10);
         dates.push(dateString);
