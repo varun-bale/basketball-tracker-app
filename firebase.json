@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/basketball-tracker-app",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",

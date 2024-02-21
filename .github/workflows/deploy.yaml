@@ -7,14 +7,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@master
         with:
           node-version: 16
 
@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Build Angular app
-        run: ng build
+        run: npm run build
 
       - name: Deploy to Firebase
         run: |
